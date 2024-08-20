@@ -11,6 +11,7 @@ import cairo
 
 from screeninfo import get_monitors
 from Screenote.svg import SVG
+from Screenote.color import Color
 
 
 APP_NAME = "Screenote"
@@ -132,6 +133,14 @@ class Screenote(Gtk.Window):
 
         if button == 1:
             self.mouse_left_pressed = True
+            self.svg.create_stroke(
+                    "polyline",#polyline-circle-line
+                    x= self.mouse_position[0],
+                    y=self.mouse_position[1],
+                    fill=Color(None),
+                    stroke=Color((255,0,0)),
+                    stroke_width=4
+            )
         elif button == 2:
             self.mouse_middle_pressed = True
         elif button == 3:
@@ -146,6 +155,9 @@ class Screenote(Gtk.Window):
         button = event.button
 
         self.update_mouse_position(old_pos=self.mouse_position,new_pos=(x,y))
+        self.svg.add_stroke()
+        # self.update_svg()
+        self.update_image(update_window=True)
 
         if button == 1:
             self.mouse_left_pressed = False
@@ -164,6 +176,10 @@ class Screenote(Gtk.Window):
             print("Drawing")
             x, y = event.x, event.y
             self.update_mouse_position(old_pos=self.mouse_position,new_pos=(x,y))
+            self.svg.add_point(self.mouse_position[0], self.mouse_position[1])
+            # self.update_svg()
+            self.update_image(update_window=True)
+
             self.mouse_available = False
             self.mouse_motion_timeout = GLib.timeout_add(1000/FPS, self.set_mouse_available)
 
@@ -201,8 +217,6 @@ class Screenote(Gtk.Window):
     def update_mouse_position(self, old_pos, new_pos):
         self.mouse_position_old = old_pos
         self.mouse_position = new_pos
-
-        self.update_svg()
 
     def update_svg(self):
         self.svg.add_line(
