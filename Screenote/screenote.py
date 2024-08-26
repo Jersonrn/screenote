@@ -11,7 +11,7 @@ import cairo
 
 from screeninfo import get_monitors
 from Screenote.svg import SVG
-from Screenote.color import Color
+from Screenote.utils import Color
 
 
 APP_NAME = "Screenote"

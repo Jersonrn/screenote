@@ -1,5 +1,5 @@
 import math
-from Screenote.color import Color
+from Screenote.utils import Color
 from screeninfo import get_monitors
 
 

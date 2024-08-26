@@ -6,7 +6,7 @@ from gi.repository import Gtk, Gio
 
 from Screenote.screenote import Screenote
 from Screenote.server import EventServer
-from Screenote.tools import Tool
+from Screenote.utils import Tool
 
 
 TOOLS = {
