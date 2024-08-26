@@ -74,6 +74,8 @@ class Screenote(Gtk.Window):
         self.mouse_motion_timeout = None
         self.mouse_available = True
 
+        self.selected_tool = "polyline"
+
 
     def quit(self, widget=None, data=None, exit_status=os.EX_OK):
         self.exit_status = exit_status
@@ -103,8 +105,8 @@ class Screenote(Gtk.Window):
         else:
             self.input_shape_combine_region(cairo.Region(cairo.RectangleInt(0, 0, 0, 0)))
 
-    def on_draw_mode(self, widget):
-        if widget.get_active():
+    def on_draw_mode(self):
+        if self.systray.draw_mode_state:
             self.systray.show_draw_item.set_active(True)
             self.bg_color = Gdk.RGBA(0., 0., 0., 0.2)
             self.present()
@@ -134,7 +136,7 @@ class Screenote(Gtk.Window):
         if button == 1:
             self.mouse_left_pressed = True
             self.svg.create_stroke(
-                    "polyline",#polyline-circle-line
+                    stroke_type=self.selected_tool,
                     x= self.mouse_position[0],
                     y=self.mouse_position[1],
                     fill=Color(None),

@@ -48,6 +48,26 @@ class Circle:
     def add_point(self, x, y):
         self.radius = math.sqrt( (x - self.cx)**2 + (y - self.cy)**2 )
 
+class Ellipse(Circle):
+    def __init__(
+            self,
+            x=0,
+            y=0,
+            fill=Color(None),
+            stroke=Color((1, 1, 1)),
+            stroke_width=4
+    ) -> None:
+        super().__init__(x, y, fill, stroke, stroke_width)
+
+        self.rx = 0
+        self.ry = 0
+
+    def get_str(self):
+        return f'\t<ellipse rx="{self.rx}" ry="{self.ry}" cx="{self.cx}" cy="{self.cy}" fill="{self.fill}" stroke="{self.stroke}" stroke-width="{self.stroke_width}" />\n'
+
+    def add_point(self, x, y):
+        self.rx = x - self.cx
+        self.ry = y - self.cy
 
 class Polyline:
     def __init__(
@@ -94,6 +114,7 @@ class SVG:
         stroke_classes = {
             "polyline": Polyline,
             "circle": Circle,
+            "ellipse": Ellipse,
             "line": Line
         }
 
