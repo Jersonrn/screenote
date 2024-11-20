@@ -138,6 +138,14 @@ class SystemTrayIcon:
         undo_tool.connect("clicked", self.on_undo_tool_clicked)
         toolbar.insert(undo_tool, -1)
 
+        redo_tool = Tool(
+                tooltip="Redo tool",
+                tool_name="Redo",
+                icon_name="edit-redo"
+        )
+        redo_tool.connect("clicked", self.on_redo_tool_clicked)
+        toolbar.insert(redo_tool, -1)
+
         #Add vbox to dialog
         self.tools.get_content_area().pack_start(vbox, True, True, 0)
 
@@ -156,6 +164,11 @@ class SystemTrayIcon:
     def on_undo_tool_clicked(self, button):
         print("on undo tool clicked")
         self.screenote.undo()
+
+    #Called when the 'redo tool' is clicked
+    def on_redo_tool_clicked(self, button):
+        print("on redo tool clicked")
+        self.screenote.redo()
 
 
 

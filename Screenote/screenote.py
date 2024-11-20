@@ -235,3 +235,6 @@ class Screenote(Gtk.Window):
         self.svg.remove_last_stroke()
         self.update_image(update_window=True)
 
+    def redo(self):
+        self.svg.recove_next_stroke()
+        self.update_image(update_window=True)

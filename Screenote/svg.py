@@ -191,6 +191,11 @@ class SVG:
             last_stroke = self.strokes.pop()
             self.undo_strokes.append(last_stroke)
 
+    def recove_next_stroke(self):
+        if self.undo_strokes:
+            next_stroke = self.undo_strokes.pop()
+            self.strokes.append(next_stroke)
+
     def get_image(self):
         image = self.img[:-7]
         end = self.img[-7:]
