@@ -130,6 +130,14 @@ class SystemTrayIcon:
         self.draw_mode_tool.connect("clicked", self.on_draw_mode_tool_clicked)
         toolbar.insert(self.draw_mode_tool, -1)
 
+        undo_tool = Tool(
+                tooltip="Undo tool",
+                tool_name="Undo",
+                icon_name="edit-undo"
+        )
+        undo_tool.connect("clicked", self.on_undo_tool_clicked)
+        toolbar.insert(undo_tool, -1)
+
         #Add vbox to dialog
         self.tools.get_content_area().pack_start(vbox, True, True, 0)
 
@@ -143,6 +151,14 @@ class SystemTrayIcon:
         print("on draw mode clicked")
         status = button.get_active()
         self.draw_mode_item.set_active(status) #Emit signal
+
+    #Called when the 'undo tool' is clicked
+    def on_undo_tool_clicked(self, button):
+        print("on undo tool clicked")
+        self.screenote.undo()
+
+
+
 
     #Enable/disable draw mode
     def on_draw_mode(self, widget):

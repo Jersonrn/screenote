@@ -136,6 +136,7 @@ class SVG:
 
         self.stroke = None
         self.strokes = []
+        self.undo_strokes = []
 
         self.img = f'''<?xml version="1.0" encoding="UTF-8"?>
     <svg
@@ -178,8 +179,17 @@ class SVG:
             self.stroke.add_point(x, y)
 
     def add_stroke(self):
+        if self.undo_strokes:
+            self.undo_strokes.clear()
+
         if self.stroke is not None:
             self.strokes.append(self.stroke)
+            self.stroke = None
+
+    def remove_last_stroke(self):
+        if self.strokes:
+            last_stroke = self.strokes.pop()
+            self.undo_strokes.append(last_stroke)
 
     def get_image(self):
         image = self.img[:-7]
