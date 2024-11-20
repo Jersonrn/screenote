@@ -14,6 +14,7 @@ TOOLS = {
         "draw_circle": {"tooltip": "draw circle", "tool_name": "circle", "icon_name": "draw-circle"},
         "draw_line": {"tooltip": "draw line", "tool_name": "line", "icon_name": "tool_line"},
         "draw_ellipse": {"tooltip": "draw ellipse", "tool_name": "ellipse", "icon_name": "tool_ellipse"},
+        "draw_rectangle": {"tooltip": "draw rectangle", "tool_name": "rectangle", "icon_name": "tool_rectangle"},
         }
 
 class SystemTrayIcon:

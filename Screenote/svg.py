@@ -69,6 +69,41 @@ class Ellipse(Circle):
         self.rx = x - self.cx
         self.ry = y - self.cy
 
+class Rectangle:
+    def __init__(
+            self,
+            x=0,
+            y=0,
+            fill=Color(None),
+            stroke=Color((1,1,1)),
+            stroke_width=4
+    ) -> None:
+        self.origin_x = x
+        self.origin_y = y
+        self.x = x
+        self.y = y
+        self.width = 0
+        self.height = 0
+        self.fill = fill
+        self.stroke = stroke
+        self.stroke_width = stroke_width
+
+    def get_str(self):
+        return f'\t<rect x="{self.x}" y="{self.y}" width="{self.width}" height="{self.height}" fill="{self.fill}" stroke="{self.stroke}" stroke_width="{self.stroke_width}" />\n'
+    
+    def add_point(self, x, y):
+        if x > self.origin_x:
+            self.width = x - self.x
+        else:
+            self.x = x
+            self.width = self.origin_x - self.x
+
+        if y > self.origin_y:
+            self.height = y - self.y
+        else:
+            self.y = y
+            self.height = self.origin_y - self.y
+
 class Polyline:
     def __init__(
             self,
@@ -115,13 +150,14 @@ class SVG:
             "polyline": Polyline,
             "circle": Circle,
             "ellipse": Ellipse,
-            "line": Line
+            "rectangle": Rectangle,
+            "line": Line,
         }
 
         stroke_type = stroke_type.lower()
 
         if stroke_type not in stroke_classes:
-            raise ValueError("Unknown type, use: 'polyline', 'circle', or 'line'")
+            raise ValueError("Unknown type, use: 'polyline', 'circle', 'ellipse', 'rectangle' or 'line'")
 
         required_args = ["x", "y", "fill", "stroke", "stroke_width"]
 
